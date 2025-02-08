@@ -1,3 +1,5 @@
+using signalRD1Smart.Hubs;
+
 namespace signalRD1Smart
 {
     public class Program
