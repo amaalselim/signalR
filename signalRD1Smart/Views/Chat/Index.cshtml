@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "index";
+}
+
+<h1>Chat</h1>
+<input type="text" id="message" />
+<input type="button" value="send" id="sendmessage" onclick="send()" />
+</
+<br />
+
+<ul id="ul">
+    <li></li>
+</ul>
+
+@section Scripts {
+    <script src="~/lib/signalr.js"></script>
+
+    <script>
+        var nam = prompt("Enter your name: ");
+
+        // define connection, start connection, define function to consume server, callback
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // start connection negotionate between client and server to choose the suitable technique (web socket, server send event, long polling)
+        connection.start();
+        alert("Connected");
+
+        // call back function
+        connection.on("newMessage", function (name , message) {
+            // var li = document.createElement("li");
+            // li.textContent = message;
+            // document.querySelector("ul").appendChild(li);
+            $("#ul").append(`<li>${name} : ${message}</li>`);
+            alert("message broadcast from server");
+        });
+
+        // fuction to call service
+        function send() {
+            var message = document.getElementById("message").value;
+            connection.invoke("SendMessage", nam , message);
+            alert("message sent to service");
+        }
+    </script>
+}
