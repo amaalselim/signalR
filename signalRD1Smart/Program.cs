@@ -1,3 +1,5 @@
+﻿using Microsoft.EntityFrameworkCore;
+using signalRD1Smart.Context;
 using signalRD1Smart.Hubs;
 
 namespace signalRD1Smart
@@ -8,9 +10,18 @@ namespace signalRD1Smart
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSignalR();
+            builder.Services.AddSignalR(options =>
+            {
+                options.KeepAliveInterval = TimeSpan.FromSeconds(30); 
+                options.ClientTimeoutInterval = TimeSpan.FromMinutes(1); 
+            });
+
 
             var app = builder.Build();
 
@@ -24,6 +35,8 @@ namespace signalRD1Smart
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseWebSockets();
+
 
             app.UseRouting();
 
