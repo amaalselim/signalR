@@ -5,7 +5,12 @@
 <h1>Chat</h1>
 <input type="text" id="message" />
 <input type="button" value="send" id="sendmessage" onclick="send()"/>
-</<br />
+<br />
+
+<input type="text" id="gtext" />
+<input type="button" value="join" onclick="join()" />
+<input type="button" value="send to group" onclick="sendgroup()" />
+
 
 <ul id="ul">
     <li></li>
@@ -28,11 +33,18 @@
 
         // call back function
         connection.on("NewMessage", function (name, message) {
-            // var li = document.createElement("li");
-            // li.textContent = message;
-            // document.querySelector("ul").appendChild(li);
             $("#ul").append(`<li>${name} : ${message}</li>`);
            // alert("message broadcast from server");
+        });
+
+        connection.on("NewMember", function (name, gname) {
+            $("#ul").append(`<li>${name} joinned ${gname }</li>`);
+            // alert("message broadcast from server");
+        });
+
+        connection.on("groupmsg", function (gname,name, message) {
+            $("#ul").append(`<li>${name} ( ${gname} ) : ${message}</li>`);
+            // alert("message broadcast from server");
         });
 
         // fuction to call service
@@ -40,6 +52,16 @@
             var message = document.getElementById("message").value;
             connection.invoke("SendMessage", nam, message);
           //alert("message sent to service");
+        }
+
+        function join(){
+            var gname = document.getElementById("gtext").value;
+            connection.invoke("joinGroup", gname, nam);
+        }
+        function sendgroup() {
+            var message = document.getElementById("message").value;
+            var gname = document.getElementById("gtext").value;
+            connection.invoke("SendToGroup", gname, nam, message);
         }
     </script>
 }
