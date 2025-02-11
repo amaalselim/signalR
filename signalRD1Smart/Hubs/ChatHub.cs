@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using signalRD1Smart.Context;
 using signalRD1Smart.Models;
+using System.Text.RegularExpressions;
 
 namespace signalRD1Smart.Hubs
 {
@@ -32,6 +33,18 @@ namespace signalRD1Smart.Hubs
 
             //send to others online clients except me
            // Clients.Others.SendAsync("NewMessage",name,message);   
+        }
+        public async Task joinGroup(string gname,string name)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, gname);
+
+            await Clients.OthersInGroup(gname).SendAsync("NewMember",name, gname);
+
+        }
+        public async Task SendToGroup(string gname,string name,string message)
+        {
+            //save in Db
+            await Clients.Group(gname).SendAsync("groupmsg",gname,name,message);
         }
     }
 }
