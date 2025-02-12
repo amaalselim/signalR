@@ -44,6 +44,7 @@ namespace signalRD1Smart.Hubs
         public async Task SendToGroup(string gname,string name,string message)
         {
             //save in Db
+
             await Clients.Group(gname).SendAsync("groupmsg",gname,name,message);
         }
     }
