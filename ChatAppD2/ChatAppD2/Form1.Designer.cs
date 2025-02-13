@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_name = new System.Windows.Forms.TextBox();
             this.btn_sendgroup = new System.Windows.Forms.Button();
             this.lb_message = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
@@ -48,6 +48,7 @@
             this.btn_send.TabIndex = 1;
             this.btn_send.Text = "Send";
             this.btn_send.UseVisualStyleBackColor = true;
+            this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
             // 
             // text_message
             // 
@@ -80,7 +81,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -100,12 +100,12 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Group Name";
             // 
-            // textBox3
+            // txt_name
             // 
-            this.textBox3.Location = new System.Drawing.Point(187, 10);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 8;
+            this.txt_name.Location = new System.Drawing.Point(187, 10);
+            this.txt_name.Name = "txt_name";
+            this.txt_name.Size = new System.Drawing.Size(100, 20);
+            this.txt_name.TabIndex = 8;
             // 
             // btn_sendgroup
             // 
@@ -132,7 +132,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lb_message);
             this.Controls.Add(this.btn_sendgroup);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txt_name);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_join);
@@ -155,7 +155,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_name;
         private System.Windows.Forms.Button btn_sendgroup;
         private System.Windows.Forms.ListBox lb_message;
     }
